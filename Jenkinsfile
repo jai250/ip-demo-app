@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_token') {
                         image.push()
                         image.push("latest")
                     }
