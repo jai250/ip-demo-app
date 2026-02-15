@@ -19,5 +19,19 @@ pipeline {
                 }
             }
         }
+        stage("Deploy to App Server") {
+            steps {
+                sshagent(['ec2_key']) {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ubuntu@3.110.136.122 '
+                    docker pull ${IMAGE_NAME}:${IMAGE_TAG}
+                    docker stop ipapp || true
+                    docker rm ipapp || true
+                    docker run -d -p 3000:3000 --name ipapp ${IMAGE_NAME}:${IMAGE_TAG}
+                    '
+                    """
+                }
+            }
+        }    
     }
 }
