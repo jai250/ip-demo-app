@@ -2,17 +2,11 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "jk1995    /ip-demo"
+        IMAGE_NAME = "jk1995/ip-demo"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
-
-        stage("Checkout") {
-            steps {
-                checkout scm
-            }
-        }
 
         stage("Build Docker Image") {
             steps {
